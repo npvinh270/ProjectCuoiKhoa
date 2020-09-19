@@ -1,0 +1,18 @@
+﻿@model ProjectCuoiKhoa.ViewModels.LoaiDropDownVM
+
+    <select name="@Model.ControlName" id="@Model.ControlName" class="form-control">
+        <option value="">----Chọn----</option>
+        @{
+            var allLoai = Model.Items.ToList();
+            var level1 = allLoai.Where(lo => lo.MaLoaiCha == null);
+        }
+        @foreach (var lv1 in level1)
+        {
+            var level2 = Model.Items.Where(lo => lo.MaLoaiCha == lv1.MaLoai).ToList();
+            <option value="@lv1.MaLoai">@lv1.TenLoai</option>
+            @foreach (var lv2 in level2)
+            {
+                <option value="@lv2.MaLoai">|__@lv2.TenLoai</option>
+            }
+        }
+    </select>
